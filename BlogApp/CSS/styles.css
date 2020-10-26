@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(#edc1f8, #fafcfc);
+}
+
+ul {
+    margin-left: 15%;
+    flex-direction: column;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}

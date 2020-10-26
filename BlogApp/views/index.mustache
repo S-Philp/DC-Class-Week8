@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+
+    <body>
+
+        <h1>Recipe Blog<h1>
+
+        <form method="POST" action="/create-blogPost">
+            <input type="text" placeholder="Blog Title" name="title" />
+            <input type="text" placeholder="Blog Post Content" name="body" />
+            <button>Post Blog</button>
+        </form>
+
+        <ul>
+        {{#blogposts}}
+
+            <li>
+            <form method="POST" action="/delete-blogPost">
+                <label>{{title}} Date Created: {{date_created}} Date Updated: {{date_updated}}</label>
+                <br>
+                <label>{{body}}</label>
+                <button>Delete Post</button>
+            </form>
+            </li>
+        {{/blogposts}}
+        </ul>
+
+
+    </body>
+
+</html>
