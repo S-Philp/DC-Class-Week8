@@ -1,16 +1,22 @@
 <html>
     <head>
+        <link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/styles.css">
     </head>
 
     <body>
 
-        <h1>Recipe Blog<h1>
+        <h1>Recipe Blog</h1>
 
         <form method="POST" action="/create-blogPost">
-            <input type="text" placeholder="Blog Title" name="title" />
-            <input type="text" placeholder="Blog Post Content" name="body" />
-            <button>Post Blog</button>
+            <div id="createPostBar">
+                <div id="miniPostBar">
+                    <input type="text" placeholder="Blog Title" name="title" />
+                    <button name="postBlogButton">Post Blog</button>
+                </div>
+                <textarea placeholder="Blog Post Content" name="body" rows="10" cols="80"></textarea>
+                {{! <input type="text" placeholder="Blog Post Content" name="body" /> }}
+            </div>
         </form>
 
         <ul>
@@ -18,15 +24,28 @@
 
             <li>
             <form method="POST" action="/delete-blogPost">
-                <label>{{title}} Date Created: {{date_created}} Date Updated: {{date_updated}}</label>
-                <br>
-                <label>{{body}}</label>
-                <button>Delete Post</button>
-            </form>
+                <div id="displayPostBar">
+                    <p><b><i>{{postTitle}}</i></b> - <b>Date Created:</b> {{postDateCreated}} <b>Date Updated:</b> {{postDateUpdated}}</p>
+                    <button name="deletePostButton">Delete Post</button>
+                </div>
+                <div id="displayPostBody">
+                <p>{{postBody}}</p>
+                </div>
+                <input type="hidden" value="{{postId}}" name="post_id" />
+
+                {{#comments}}
+                    <li>
+                    <div id="displayCommentBar">
+                    <p><b>{{commentUserName}}</b> - {{commentDateCreated}}</p>
+                    <p>{{commentContent}}</p>
+                    </li>
+                    </div>
+                {{/comments}}
+                <hr>
             </li>
+            </form>
         {{/blogposts}}
         </ul>
-
 
     </body>
 

@@ -17,16 +17,91 @@ app.engine('mustache', mustacheExpress())
 app.set('views', './views')
 app.set('view engine', 'mustache')
 
-
-/*  
-to_char(date_created,"MM/DD/YYYY") AS date_created FROM blogPosts, to_char(date_updated, ,"MM/DD/YYYY") AS date_created FROM blogPosts
-*/
+/*
 app.get('/', (req,res) => {
-    db.any('SELECT post_id, title, body, date_created, date_updated, is_published FROM blogposts;')
+    db.any("SELECT blogposts.post_id, title, body, to_char(blogposts.date_created,'MM/DD/YYYY') AS post_date_created, to_char(blogposts.date_updated,'MM/DD/YYYY') AS date_updated, blogposts.is_published, postcomments.user_name, postcomments.comment, to_char(postcomments.date_created,'MM/DD/YYYY') AS comment_date_created FROM blogposts FULL OUTER JOIN postcomments ON blogposts.post_id = postcomments.post_id;")
     .then(blogposts => {
+        console.log(blogposts)
         res.render('index', {blogposts: blogposts})
     })
 })
+*/
+
+
+app.get('/', async (req,res) => {
+
+    let result = await db.any("SELECT blogposts.post_id, title, body, to_char(blogposts.date_created,'MM/DD/YYYY') AS post_date_created, to_char(blogposts.date_updated,'MM/DD/YYYY') AS date_updated, blogposts.is_published, postcomments.user_name, postcomments.comment, to_char(postcomments.date_created,'MM/DD/YYYY') AS comment_date_created FROM blogposts FULL OUTER JOIN postcomments ON blogposts.post_id = postcomments.post_id;")
+
+    let blogposts = formatCommentsforDisplay(result)
+
+    console.log(blogposts)
+
+    res.render('index', {blogposts: blogposts})
+
+})
+
+/*
+app.get('/dashboard',async (req,res) => {
+
+    let result = await db.any('SELECT users.user_id,first_name, last_name, age, street, city, state FROM users JOIN addresses ON users.user_id = addresses.user_id')
+
+    let users = formatUsersAndAddressesForDisplay(result)
+    
+    console.log(users)
+
+    res.render('dashboard', {usersAddresses: users})
+})
+*/
+
+function formatCommentsforDisplay(list) {
+
+    let blogposts = []
+
+    list.forEach((item) => {
+        if(blogposts.length == 0) {
+            let blogpost = {postId: item.post_id, postTitle: item.title, postBody: item.body, postDateCreated: item.post_date_created,    postDateUpdated: item.date_updated, postPub: item.is_published, comments: [{commentUserName: item.user_name, commentContent: item.comment, commentDateCreated: item.comment_date_created}]}
+            blogposts.push(blogpost)
+        } else {
+            let blogpost = blogposts.find(blogpost => blogpost.postId == item.post_id)
+            if(blogpost) {
+                blogpost.comments.push({commentUserName: item.user_name, commentContent: item.comment, commentDateCreated: item.comment_date_created})
+            } else {
+                let blogpost = {postId: item.post_id, postTitle: item.title, postBody: item.body, postDateCreated: item.post_date_created, postDateUpdated: item.date_updated, postPub: item.is_published, comments: [{commentUserName: item.user_name, commentContent: item.comment, commentDateCreated: item.comment_date_created}]}
+                blogposts.push(blogpost)
+            }
+    }
+    })
+
+    return blogposts
+
+}
+
+/*
+function formatUsersAndAddressesForDisplay(list) {
+
+    let users = [] 
+
+    list.forEach((item) => {
+        if(users.length == 0) {
+            let user = {userId: item.user_id,firstName: item.first_name,
+                 lastName: item.last_name,addresses: [{city: item.city, street: item.street}]}
+            users.push(user)
+        } else {
+            let user = users.find(user => user.userId == item.user_id)
+            if(user) {
+                user.addresses.push({city: item.city, street: item.street})
+            } else {
+                let user = {userId: item.user_id,firstName: item.first_name,
+                    lastName: item.last_name,addresses: [{city: item.city, street: item.street}]}
+               users.push(user)
+            }
+        }
+    })
+
+    return users 
+
+}
+*/
 
 app.post('/create-blogPost', (req,res) => {
 

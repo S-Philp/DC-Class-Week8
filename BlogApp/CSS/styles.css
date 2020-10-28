@@ -1,7 +1,74 @@
 body {
+    font-family: 'Grandstander', cursive;
     display: flex;
     flex-direction: column;
-    background: radial-gradient(#edc1f8, #fafcfc);
+    background: radial-gradient(#edc1f8, #f5e7c0);
+}
+
+h1 {
+    margin: 0 auto;
+    text-decoration: underline;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+#createPostBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#miniPostBar {
+    display: flex;
+}
+
+#displayPostBar {
+    font-size: 30px;
+    font-weight: 2000;
+    display: flex;
+    justify-self: center;
+}
+
+#displayPostBody {
+    display: flex;
+    font-size: 20px;
+}
+
+#displayCommentBar {
+    margin-left: 50px;
+    font-size: 20px;
+}
+
+input[name="title"] {
+    align-items: center;
+    background-color: #f8e1a0;
+    box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    margin: 10px;
+}
+
+textarea[name="body"] {
+    align-items: center;
+    background-color: #f8e1a0;
+    box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    margin: 10px;
+    height: 50px;
+}
+
+button[name="postBlogButton"] {
+    align-items: center;
+    background-color: #fad673;
+    box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    margin: 10px;
+    height: 30px;
 }
 
 ul {
@@ -10,4 +77,16 @@ ul {
     list-style-type: none;
     display: flex;
     justify-content: center;
+}
+
+button[name="deletePostButton"] {
+    align-items: center;
+    background-color: #fcaaea;
+    box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    margin: 10px;
+    height: 30px;
+    margin-top: 28px;
 }
