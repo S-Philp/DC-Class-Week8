@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+
+    <body>
+        <h1>My Family Bookshelf</h1>
+
+        <form method="POST" action="/update-book">    
+            <div id="createBookBar">
+                <div id="miniBookBar">
+                    <input type="text" value="title" name="title" />
+                    <input type="text" value="author" name="author" />
+                    <input type="text" value="genre" name="genre" />
+                    <button name="updateBookButton">Update Book</button>
+                </div>
+                <textarea placeholder="Book Description" name="description" rows="10" cols="80"></textarea>
+                <input type="hidden" value="{{id}}" name="bookId" />
+        </form>
+        <a href="/books">Return to Home</a>
+            </div>
+
+
+
+    </body>
+
+</html>

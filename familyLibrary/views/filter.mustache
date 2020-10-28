@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Grandstander:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+
+    <body>
+        <h1>My Family Bookshelf</h1>
+
+        <form method="POST" action="/filter">    
+            <div id="createBookBar">
+                <input type="text" placeholder="Genre" name="genre" />
+                <button name="filterButton">Search</button>
+        </form>
+        <a href="/books">Return to Home</a>
+        </div>
+
+    <ul>
+    {{#postFilter}}
+    <li>
+        <p><b><i>{{title}}</i></b> - <b>Author:</b> {{author}} - <b>Genre:</b> {{genre}}</p>
+        <p><b>Book Description:</b> {{description}}</p>
+        <hr>
+    </li>
+    {{/postFilter}}
+    </ul>
+
+    </body>
+
+</html>
+

@@ -17,15 +17,6 @@ app.engine('mustache', mustacheExpress())
 app.set('views', './views')
 app.set('view engine', 'mustache')
 
-/*
-app.get('/', (req,res) => {
-    db.any("SELECT blogposts.post_id, title, body, to_char(blogposts.date_created,'MM/DD/YYYY') AS post_date_created, to_char(blogposts.date_updated,'MM/DD/YYYY') AS date_updated, blogposts.is_published, postcomments.user_name, postcomments.comment, to_char(postcomments.date_created,'MM/DD/YYYY') AS comment_date_created FROM blogposts FULL OUTER JOIN postcomments ON blogposts.post_id = postcomments.post_id;")
-    .then(blogposts => {
-        console.log(blogposts)
-        res.render('index', {blogposts: blogposts})
-    })
-})
-*/
 
 
 app.get('/', async (req,res) => {
@@ -40,18 +31,6 @@ app.get('/', async (req,res) => {
 
 })
 
-/*
-app.get('/dashboard',async (req,res) => {
-
-    let result = await db.any('SELECT users.user_id,first_name, last_name, age, street, city, state FROM users JOIN addresses ON users.user_id = addresses.user_id')
-
-    let users = formatUsersAndAddressesForDisplay(result)
-    
-    console.log(users)
-
-    res.render('dashboard', {usersAddresses: users})
-})
-*/
 
 function formatCommentsforDisplay(list) {
 
@@ -76,32 +55,6 @@ function formatCommentsforDisplay(list) {
 
 }
 
-/*
-function formatUsersAndAddressesForDisplay(list) {
-
-    let users = [] 
-
-    list.forEach((item) => {
-        if(users.length == 0) {
-            let user = {userId: item.user_id,firstName: item.first_name,
-                 lastName: item.last_name,addresses: [{city: item.city, street: item.street}]}
-            users.push(user)
-        } else {
-            let user = users.find(user => user.userId == item.user_id)
-            if(user) {
-                user.addresses.push({city: item.city, street: item.street})
-            } else {
-                let user = {userId: item.user_id,firstName: item.first_name,
-                    lastName: item.last_name,addresses: [{city: item.city, street: item.street}]}
-               users.push(user)
-            }
-        }
-    })
-
-    return users 
-
-}
-*/
 
 app.post('/create-blogPost', (req,res) => {
 
